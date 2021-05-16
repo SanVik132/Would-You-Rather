@@ -59,16 +59,45 @@ while True:
     choice = input('> ').lower() # Convert input to lowercase to make choice selection case-insensitive.
         
     if choice == 'a':
+        while(1):
+            option_1 = input_something('Enter 1st option')
+            if option_1 == '':
+                save_data()
+                break
+            option_2 = input_something('Enter 2nd option')
+            choice = input_something('if the question is intended for mature audiences')
+            if choice =="y" or "Y":
+                mature = True
+            elif choice == "N" or "n":
+                mature = False
+
+            dict={
+                "option_1": option_1,
+                "option_2": option_2,
+                "mature": mature,
+                "votes_1": 0,
+                "votes_2": 0
+            }
+
+            data.append(dict)
+        
+            
         # Add a new question.
         # See Point 3 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+       
 
 
     
     elif choice == 'l':
-        # List the current questions.
-        # See Point 4 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        if len(data) == 0:
+            print('No questions saved')
+        else:
+            for i in enumerate(data):
+                my_string = "{} ) {} / {}".format(i[0],i[1]['option_1'] , i[1]['option_2'])
+                print(my_string)
+
+
+
 
 
 
