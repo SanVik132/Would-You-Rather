@@ -1,0 +1,16 @@
+[
+{
+"option_1": "Fight 1 horse-sized duck",
+"option_2": "Fight 100 duck-sized horses",
+"mature": true,
+"votes_1": 3,
+"votes_2": 5
+},
+{
+"option_1": "Be invisible",
+"option_2": "Be able to fly",
+"mature": false,
+"votes_1": 0,
+"votes_2": 0
+}
+]
