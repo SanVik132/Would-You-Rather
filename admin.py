@@ -17,21 +17,35 @@ import json
 # This function repeatedly prompts for input until an integer is entered.
 # See Point 1 of the "Functions in admin.py" section of the assignment brief.
 def input_int(prompt):
-    pass
-
-
-
+     while(True):
+        value = input(prompt)
+        try:
+            val = int(value)
+            return val
+            break
+        except:
+            pass
+    
 # This function repeatedly prompts for input until something other than whitespace is entered.
 # See Point 2 of the "Functions in admin.py" section of the assignment brief.
 def input_something(prompt):
-    pass
+    while(True):
+        value = input(prompt)
+        if len(value) >= 1 or value[0]==" ":
+            break
+    return value
 
 
 
 # This function opens "data.txt" in write mode and writes data_list to it in JSON format.
 # See Point 3 of the "Functions in admin.py" section of the assignment brief.
 def save_data(data_list):
-    pass
+    with open('data.txt', 'w') as outfile:
+        print(data_list)
+        json.dump(data_list,outfile)
+
+    # Close opend file
+    outfile.close()
 
 
 
@@ -61,8 +75,9 @@ while True:
     if choice == 'a':
         while(1):
             option_1 = input_something('Enter 1st option')
-            if option_1 == '':
-                save_data()
+
+            if option_1 == ' ':
+                save_data(data)
                 break
             option_2 = input_something('Enter 2nd option')
             choice = input_something('if the question is intended for mature audiences')
@@ -119,8 +134,9 @@ while True:
     elif choice == 'v':
         if len(data) == 0:
             print('No questions saved')
+        else:
             while(True):
-                search_term = input_something('Enter the Index ')
+                search_term = input_int('Enter the Index ')
                 try:
                     val = int(search_term)
                     for i in enumerate(data):
@@ -134,26 +150,27 @@ while True:
         
 
     elif choice == 'd':
-        # Delete a question.
-        # See Point 7 of the "Requirements of admin.py" section of the assignment brief.
-        pass
-
-        
+        if len(data) == 0:
+            print('No questions saved')
+        else:
+            while(True):
+                search_term = input_int('Enter the Index ')
+                try:
+                    val = int(search_term)
+                    data.pop(val)
+                    print('Question deleted')
+                    save_data(data)
+                except ValueError:
+                    break
+               
 
     elif choice == 'q':
-        # Quit the program.
-        # See Point 8 of the "Requirements of admin.py" section of the assignment brief.
-        pass
-
-
+        print('Goodbye!')
+        break
 
     else:
-        # Print "invalid choice" message.
-        # See Point 9 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        print('Invalid choice')
 
 
 
 # If you have been paid to write this program, please delete this comment.
-
-input_int()
