@@ -102,16 +102,34 @@ while True:
 
 
     elif choice == 's':
-        # Search the current questions.
-        # See Point 5 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        if len(data) == 0:
+            print('No questions saved')
+        else:
+            while(True):
+                search_term= input_something('Enter the search term')
+                search_term = search_term.lower()
+                for i in enumerate(data):
+                    if search_term in (i[1]['option_1'] or i[1]['option_2']):
+                        my_string = "{} ) {} / {}".format(i[0],i[1]['option_1'] , i[1]['option_2'])
+                        print(my_string)
+
 
 
 
     elif choice == 'v':
-        # View a question.
-        # See Point 6 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        if len(data) == 0:
+            print('No questions saved')
+            while(True):
+                search_term = input_something('Enter the Index ')
+                try:
+                    val = int(search_term)
+                    for i in enumerate(data):
+                        if i[o]==val:
+                            my_string = "{} ) {} / {}".format(i[0],i[1]['option_1'] , i[1]['option_2'])
+                            print(my_string)
+                except ValueError:
+                    break
+        
 
         
 
