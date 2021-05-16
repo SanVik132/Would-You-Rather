@@ -140,10 +140,19 @@ while True:
                 try:
                     val = int(search_term)
                     for i in enumerate(data):
-                        if i[o]==val:
+                        if i[0]==val:
                             my_string = "{} ) {} / {}".format(i[0],i[1]['option_1'] , i[1]['option_2'])
                             print(my_string)
+                            if i[1]['mature']=='true':
+                                print('This Question is intended for mature audiance only!')
+                            if i[1]['votes_1']== 0 and i[1]['votes_2']== 0:
+                                print('Nobody has answered this question')
+                            else:
+                                my_string = "option 1 recieved {} vote(s),option 2 recieved {} vote(s)".format(i[1]['votes_2'] , i[1]['votes_2'])
+                                print(my_string)
+
                 except ValueError:
+                    print('Invalid index number')
                     break
         
 
