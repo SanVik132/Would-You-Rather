@@ -61,13 +61,12 @@ class ProgramGUI:
         Votes_1 = self.data[self.question_num]['votes_1']
         Votes_2 = self.data[self.question_num]['votes_2'] 
         if vote == 'votes_1':
-            Votes_1 = Votes_1 + 1
-            print(Votes_1)
+            self.data[self.question_num]['votes_1'] = Votes_1 + 1
         else:
-            Votes_2 = Votes_2 + 1
-            print(Votes_2)
+            self.data[self.question_num]['votes_2'] = Votes_2 + 1
         self.question_num = self.question_num + 1
         self.show_question()
+
         with open('data.txt', 'w') as outfile:
             json.dump(self.data,outfile)
         outfile.close()            
