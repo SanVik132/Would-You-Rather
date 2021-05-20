@@ -41,7 +41,6 @@ def input_something(prompt):
 # See Point 3 of the "Functions in admin.py" section of the assignment brief.
 def save_data(data_list):
     with open('data.txt', 'w') as outfile:
-        print(data_list)
         json.dump(data_list,outfile)
 
     # Close opend file

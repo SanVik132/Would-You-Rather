@@ -19,25 +19,59 @@ import json
 class ProgramGUI:
 
     def __init__(self):
-        # This is the constructor of the class.
-        # It is responsible for loading and reading the data from the text file and creating the user interface.
-        # See the "Constructor of the GUI Class of wyr.py" section of the assignment brief.  
-        pass
-
-
+        parent = tkinter.Tk()
+        parent.geometry("500x500")
+        try:
+            parent.title("Would You Rather")
+            file = open('data.txt','r')
+            self.data = json.load(file)
+            file.close()  
+        except:
+            tkinter.messagebox.showinfo("Missing/Invalid file","Missing/Invalid file")  
+            parent.destroy
+        self.question_num = 0
+        self.show_mature = tkinter.messagebox.askyesno("want to see questions intended for a mature audience")
+        button_1 = tkinter.Button(parent, command=lambda: self.record_vote('votes_1'))
+        button_2 = tkinter.Button(parent, command=lambda: self.record_vote('votes_2'))
+        button_1.pack(pady = 40)
+        button_2.pack(pady = 40) 
+        data = self.show_question()
+        button_1.config(text=data['option_1'] + '?' )
+        button_2.config(text=data['option_2'] + '?' )
+        parent.mainloop()
 
     def show_question(self):
-        # This method is responsible for displaying the current question's options in the GUI and ending the program.
-        # See Point 1 of the "Methods in the GUI class of wyr.py" section of the assignment brief.
-        pass
+            try:
+                if self.show_mature == self.data[self.question_num]['mature'] :
+                    option_1 = self.data[self.question_num]['option_1']
+                    option_2 = self.data[self.question_num]['option_2']
+                    data = {
+                        'option_1':option_1,
+                        'option_2':option_2
 
-
-
-    def record_vote(self, vote):   
-        # This method is responsible for recording the user's choice when they select an option of a question.
-        # See Point 2 of the "Methods in the GUI class of wyr.py" section of the assignment brief.
-        pass
-
+                    }
+                    return data
+                else:
+                    self.question_num = self.question_num + 1
+                    self.show_question()
+            except:
+                tkinter.messagebox.showinfo("End OF File","End OF File")  
+        
+    def record_vote(self, vote):
+        Votes_1 = self.data[self.question_num]['votes_1']
+        Votes_2 = self.data[self.question_num]['votes_2'] 
+        if vote == 'votes_1':
+            Votes_1 = Votes_1 + 1
+            print(Votes_1)
+        else:
+            Votes_2 = Votes_2 + 1
+            print(Votes_2)
+        self.question_num = self.question_num + 1
+        self.show_question()
+        with open('data.txt', 'w') as outfile:
+            json.dump(self.data,outfile)
+        outfile.close()            
+        
 
 
 # Create an object of the ProgramGUI class to begin the program.
